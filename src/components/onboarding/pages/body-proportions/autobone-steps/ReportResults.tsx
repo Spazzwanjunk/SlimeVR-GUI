@@ -58,7 +58,7 @@ export function ReportResultsStep({
             variant={variant === 'onboarding' ? 'secondary' : 'tierciary'}
             // onClick={}
           >
-            Save current recording// PLACEHOLDER
+            Save current recording
           </Button>
 		  </div>
 	  </div>
