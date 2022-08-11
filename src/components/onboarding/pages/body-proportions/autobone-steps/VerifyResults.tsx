@@ -7,10 +7,12 @@ import { Typography } from '../../../../commons/Typography';
 export function VerifyResultsStep({
   nextStep,
   prevStep,
+  skipStep,
   variant,
 }: {
   nextStep: () => void;
   prevStep: () => void;
+  skipStep: () => void;
   variant: 'onboarding' | 'alone';
 }) {
   const {
@@ -76,6 +78,14 @@ export function VerifyResultsStep({
           <Button variant="primary" onClick={apply}>
             They're correct
           </Button>
+        <div className="flex gap-2 justify-right">
+          <Button
+            variant={variant === 'onboarding' ? 'secondary' : 'tierciary'}
+            onClick={skipStep}
+          >
+            Report an issue
+		  </Button>
+		  </div>
         </div>
       </div>
     </>

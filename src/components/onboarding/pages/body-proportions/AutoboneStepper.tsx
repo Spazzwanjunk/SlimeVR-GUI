@@ -17,6 +17,7 @@ import { PutTrackersOnStep } from './autobone-steps/PutTrackersOn';
 import { Recording } from './autobone-steps/Recording';
 import { StartRecording } from './autobone-steps/StartRecording';
 import { VerifyResultsStep } from './autobone-steps/VerifyResults';
+import { ReportResultsStep } from './autobone-steps/ReportResults';
 
 export function StepDot({
   active,
@@ -88,6 +89,9 @@ export function StepContainer({
 type StepComponentType = FC<{
   nextStep: () => void;
   prevStep: () => void;
+  skipStep: () => void;
+  backskipStep: () => void;
+  doublebackskipStep: () => void;
   variant: 'alone' | 'onboarding';
 }>;
 type Step = { type: 'numbered' | 'fullsize'; component: StepComponentType };
@@ -115,6 +119,7 @@ export function AutoboneStepper({
     { type: 'fullsize', component: Recording },
     { type: 'numbered', component: VerifyResultsStep },
     { type: 'fullsize', component: DoneStep },
+    { type: 'numbered', component: ReportResultsStep },
   ];
 
   const nextStep = () => {
@@ -126,7 +131,22 @@ export function AutoboneStepper({
     if (step - 1 < 0) return;
     setStep(step - 1);
   };
+  
+  const skipStep = () => {
+    if (step + 1 === steps) return;
+    setStep(step + 2);
+  };
 
+  const backskipStep = () => {
+    if (step - 2 < 0) return;
+    setStep(step - 2);
+  };
+  
+  const doublebackskipStep = () => {
+    if (step - 3 < 0) return;
+    setStep(step - 3);
+  };
+  
   return (
     <div className="w-full flex flex-col gap-4">
       <div className="w-full flex" ref={ref}>
@@ -147,6 +167,9 @@ export function AutoboneStepper({
                 variant={variant}
                 nextStep={nextStep}
                 prevStep={prevStep}
+				skipStep={skipStep}
+				backskipStep={backskipStep}
+				doublebackskipStep={doublebackskipStep}
               />
             </StepContainer>
           ))}
